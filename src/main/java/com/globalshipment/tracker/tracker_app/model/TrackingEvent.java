@@ -16,5 +16,6 @@ public class TrackingEvent {
     private LocalDateTime timestamp;
 
     @ManyToOne
+    @JoinColumn(name = "shipment_id")
     private Shipment shipment;
 }
