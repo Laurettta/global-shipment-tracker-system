@@ -3,6 +3,8 @@ package com.globalshipment.tracker.tracker_app.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "app_user")
 @Data
@@ -14,4 +16,5 @@ public class User {
 
     private String name;
     private String email;
+
 }

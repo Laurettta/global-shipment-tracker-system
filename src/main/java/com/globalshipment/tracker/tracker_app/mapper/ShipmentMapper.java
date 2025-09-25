@@ -4,6 +4,7 @@ import com.globalshipment.tracker.tracker_app.dto.request.ShipmentRequestDto;
 import com.globalshipment.tracker.tracker_app.dto.response.ShipmentResponseDto;
 import com.globalshipment.tracker.tracker_app.model.Shipment;
 
+
 public class ShipmentMapper {
 
 //    Convert DTO -> Entity
@@ -25,6 +26,7 @@ public class ShipmentMapper {
         response.setOrigin(shipment.getOrigin());
         response.setDestination(shipment.getDestination());
         response.setCost(shipment.getCost());
+        response.setUserId(shipment.getId());
 
         if(shipment.getEvents() == null || shipment.getEvents().isEmpty()){
             response.setStatus("Created");

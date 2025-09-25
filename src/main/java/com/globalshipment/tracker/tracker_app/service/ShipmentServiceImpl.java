@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,15 +24,30 @@ public class ShipmentServiceImpl implements ShipmentService{
 
     @Override
     public ShipmentResponseDto createShipment(ShipmentRequestDto request) {
+        // 1. Fetch the user from DB
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("user not found"));
 
+        // 2. Convert DTO → Entity (without user)
         Shipment shipment = ShipmentMapper.toEntity(request);
+
+        // 3. Set the user on the shipment entity
         shipment.setUser(user);
         shipment.setCreatedAt(LocalDateTime.now());
 
+        // 4. Save to DB
         Shipment savedShipment = shipmentRepository.save(shipment);
+
+        // 5. Convert entity → response DTO
         return ShipmentMapper.toResponseDto(savedShipment);
+    }
+
+    @Override
+    public List<ShipmentResponseDto> getAllShipments() {
+        return shipmentRepository.findAll()
+                .stream()
+                .map(ShipmentMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 
     @Override
