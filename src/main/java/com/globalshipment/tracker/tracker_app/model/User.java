@@ -1,5 +1,6 @@
 package com.globalshipment.tracker.tracker_app.model;
 
+import com.globalshipment.tracker.tracker_app.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,5 +17,10 @@ public class User {
 
     private String name;
     private String email;
+
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }
